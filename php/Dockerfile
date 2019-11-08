@@ -1,4 +1,4 @@
-FROM php:7.0-fpm
+FROM php:7.3.11-fpm-alpine
 
 RUN apt-get update && apt-get install -y \
 	libfreetype6-dev \
