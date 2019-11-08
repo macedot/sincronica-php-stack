@@ -1,4 +1,5 @@
-FROM php:7.3.11-fpm-alpine
+FROM php:7.3.11-fpm
+#FROM php:7.0-fpm
 
 RUN apt-get update && apt-get install -y \
 	libfreetype6-dev \
@@ -9,8 +10,9 @@ RUN apt-get update && apt-get install -y \
 	libxml2-dev \
 	openssl \
 	libcurl4-openssl-dev \
+	libzip-dev \
 	bzip2 \
-	&& docker-php-ext-install -j$(nproc) iconv mcrypt \
+	&& docker-php-ext-install -j$(nproc) iconv \
 	&& docker-php-ext-configure gd \
 	--enable-mbstring \
 	--enable-zip \
@@ -34,4 +36,5 @@ RUN apt-get update && apt-get install -y \
 
 RUN pecl install xdebug \
 	&& pecl install redis \
-	&& docker-php-ext-enable redis xdebug
+	&& pecl install mcrypt-1.0.3 \
+	&& docker-php-ext-enable xdebug redis mcrypt
